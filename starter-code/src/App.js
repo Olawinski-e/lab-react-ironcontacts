@@ -26,6 +26,40 @@ class App extends Component {
     this.setState({ contactArray: anything });
   }
 
+  sortByName() {
+    const { contactArray } = this.state;
+
+    contactArray.sort((a, b) => {
+      if (a.name > b.name) {
+        return 1;
+      } else if (b.name > a.name) {
+        return -1;
+      }
+    });
+  }
+
+  sortByPopularity() {
+    const { contactArray } = this.state;
+
+    contactArray.sort((a, b) => {
+      if (a.popularity > b.popularity) {
+        return 1;
+      } else if (b.popularity > a.popularity) {
+        return -1;
+      }
+    });
+  }
+
+  deleteContact(contactIndex) {
+    const contacts = this.state.contactArray;
+
+    // remove the movie from the array
+    contacts.splice(contactIndex, 1);
+
+    // setState() to tell React to change the DOM
+    this.setState({ contactArray: contacts });
+  }
+
   render() {
     const { contactArray } = this.state;
 
@@ -34,6 +68,10 @@ class App extends Component {
         <caption>
           <button onClick={() => this.newRandomContacts()}>
             Add a random contact
+          </button>
+          <button onClick={() => this.sortByName()}>Sort by Name</button>
+          <button onClick={() => this.sortByPopularity()}>
+            Sort by Popularity
           </button>
         </caption>
         <tr>
